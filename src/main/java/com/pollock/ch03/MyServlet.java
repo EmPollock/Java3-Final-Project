@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 @WebServlet(name = "MyServlet", value = "/kitty-cat/so-cute")
 public class MyServlet extends HttpServlet {
 
+    private final String DEFAULT_USER = "Guest";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -24,6 +26,10 @@ public class MyServlet extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String user = request.getParameter("user");
+        if(user == null){
+            user = DEFAULT_USER;
+        }
 
         try(PrintWriter out = response.getWriter();){
             out.println("<!DOCTYPE html>");
@@ -33,6 +39,7 @@ public class MyServlet extends HttpServlet {
             out.println("<link href=\"" + request.getContextPath() + "/styles/styles.css\" rel=\"stylesheet\">");
             out.println("</head>");
             out.println("<body>");
+            out.println("<h1>Hello, " + user + "</h1>");
             out.println("<h1>Servlet MyServlet at " + request.getContextPath() + "</h1>");
             out.println("<p>Today is: " + getNow() + "</p>");
             out.println("<img src=\""+ request.getContextPath() + "/images/cat.jpg\" alt=\"Kitty Cat\">");
