@@ -1,6 +1,7 @@
 package com.pollock.finalproject;
 
 import java.io.*;
+import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
@@ -20,6 +21,19 @@ public class HelloServlet extends HttpServlet {
         out.println("<html><body>");
         out.println("<h1>" + message + "</h1>");
         out.println("</body></html>");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        PrintWriter out = resp.getWriter();
+
+        out.println("<html>");
+        out.println("<head></head>");
+        out.println("<body>");
+        out.println("<h1>" + "Thank you for your submission" + "</h1>");
+        out.println("</body></html>");
+        out.println();
     }
 
     public void destroy() {

@@ -4,11 +4,11 @@ This is the final project for my CIS-181 Java III course at Kirkwood Community C
 
 ## Deployment
 
-*[Amazon Web Servies](http://java3spring2022-env.eba-2geyu3hp.us-east-1.elasticbeanstalk.com/register.html)
+* [Amazon Web Servies](http://java3spring2022-env.eba-2geyu3hp.us-east-1.elasticbeanstalk.com/register.html)
 
-*[Heroku](salty-savannah-73662.herokuapp.com/)
+* [Heroku](salty-savannah-73662.herokuapp.com/)
 
-*[Microsoft Azure](https://java3finalproject2022.azurewebsites.net)
+* [Microsoft Azure](https://java3finalproject2022.azurewebsites.net)
 
 ## Project Setup
 

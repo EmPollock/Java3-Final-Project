@@ -1,3 +1,6 @@
+body{
+    background-color: azure;
+}
 .page{
     width: 50%;
     margin: auto;
@@ -6,6 +9,7 @@
 }
 h1{
     text-align: center;
+    padding-top: 1em;
 }
 #submit{
     background-color: #1d8cfa;
