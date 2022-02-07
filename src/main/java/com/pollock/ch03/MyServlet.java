@@ -40,6 +40,13 @@ public class MyServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Hello, " + user + "</h1>");
+
+            out.println("<form action=\"\" method=\"POST\">");
+            out.println("<label for=\"user\">Enter your name:</label>");
+            out.println("<input id=\"user\" type=\"text\" name=\"user\">");
+            out.println("<input type=\"Submit\" value=\"Submit\">");
+            out.println("</form>");
+
             out.println("<h1>Servlet MyServlet at " + request.getContextPath() + "</h1>");
             out.println("<p>Today is: " + getNow() + "</p>");
             out.println("<img src=\""+ request.getContextPath() + "/images/cat.jpg\" alt=\"Kitty Cat\">");

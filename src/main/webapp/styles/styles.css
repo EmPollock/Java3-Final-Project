@@ -25,7 +25,9 @@ label{
 }
 input{
     font-size: 1.25em;
-    width:90%;
     margin-left: 1em;
     margin-bottom: 50px;
+}
+.most-width{
+    width:90%;
 }
