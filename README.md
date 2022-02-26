@@ -29,7 +29,7 @@ Environment Variables store paths so that the system can find certain files. For
 
 ## Chapter 3
 
-In chapter 3 I learned about :
+In chapter 3 I learned about:
 
 - The HttpServlet interface
 - POJOs
@@ -40,3 +40,17 @@ The HttpServlet interface is the interface that JavaEE Servlets must extend to b
 In the world of Servlets, POJOs, or Plain Old Java Objects, are any class that doesn't extend HttpServlet.
 
 Each of the methods from the HttpServlet interface that I previously mentioned takes both an HttpServletRequest object and an HttpServletResponse object. HttpServletRequest allows the Servlet to retrieve requests and data from the client. HttpServletResponse allows the Servlet to send information back to the client.
+
+## Chapter 4
+
+In chapter 4 I learned about:
+
+- Java Server Pages (JSP)
+- .env files
+- Sending and responding to text and voice messages using Twilio
+
+A Java Server Page, or JSP is a file that contains HTML and/or scripts that the server uses to generate HTML using Java. Java code in a JSP goes tags. These include the directive tag <%@ %>, the declaration tag <%! %>, the scriptlet tag <% %>, and the expression tag <%= %>.
+
+A .env file is used to store environment variables for a project. In this chapter I used a .env file to store authentication information for Twilio so that I could put my code on GitHub without exposing that information. When using a .env file for this purpose, it is important to remember to add .env to the .gitignore file.
+
+More than anything, learning to use Twilio was an interesting way to practice and learn more general concepts such as using JSPs, validating form data, using .env files, and adding libraries to a project using Maven.
