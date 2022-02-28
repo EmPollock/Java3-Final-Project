@@ -89,4 +89,8 @@ public class AverageModel {
             throw new IllegalArgumentException("Invalid number");
         }
     }
+
+    public String toString(){
+        return String.format("The average of %s, %s, and %s, is %s", num1, num2, num3, getAverage());
+    }
 }
