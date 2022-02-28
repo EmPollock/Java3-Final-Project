@@ -13,11 +13,12 @@
     if(num2 == null){
         num2 = "";
     }
-    if(num3 == null){
+    if(num3 == null) {
         num3 = "";
     }
 %>
 <jsp:include page="../include/header.jsp"/>
+<jsp:include page="../include/navbar.jsp"/>
 <main class="flex-shrink-0">
     <div class="container">
         <h1 class="mt-5">Average Calculator</h1>
