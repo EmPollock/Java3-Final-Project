@@ -46,7 +46,7 @@
         <div class="alert alert-danger">
             Error: <%=errorMsg%>
         </div>
-        <% }else{ %>
+        <% }else if(t != null){ %>
         <div class="alert alert-success">
             Result: <%=t%>
         </div>
