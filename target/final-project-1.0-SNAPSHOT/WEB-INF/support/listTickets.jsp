@@ -8,10 +8,24 @@
 %>
 <jsp:include page="/WEB-INF/include/header.jsp"/>
 <jsp:include page="/WEB-INF/include/navbar.jsp"/>
-<main class="flex-shrink-0">
     <div class="container">
         <h1 class="mt-5">Support Tickets</h1>
         <p class="lead">There <%= numTickets == 1 ? "is" : "are" %> <%=numTickets%> ticket<%= numTickets == 1 ? "" : "s" %> in the system</p>
+        <%
+            if(ticketData.size() > 0) {
+        %>
+            <ul>
+                <%
+                    for(int id : ticketData.keySet()){
+                        Ticket ticket = ticketData.get(id);
+                %>
+                <li><a href="tickets?action=view&ticketId=<%= id %>">Ticket #<%=id%> - From: <%=ticket.getCustomerName()%></a></li>
+                <%
+                    }
+                %>
+            </ul>
+        <%
+            }
+        %>
     </div>
-</main>
 <jsp:include page="/WEB-INF/include/footer.jsp"/>

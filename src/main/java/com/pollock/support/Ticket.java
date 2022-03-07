@@ -1,9 +1,14 @@
 package com.pollock.support;
 
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class Ticket {
     private String customerName;
     private String subject;
     private String body;
+    private Map<String, Attachment> attachments;
 
     public final String DEFAULT_STR = "Undefined";
 
@@ -11,8 +16,9 @@ public class Ticket {
         this.customerName = DEFAULT_STR;
         this.subject = DEFAULT_STR;
         this.body = DEFAULT_STR;
+        this.attachments = new LinkedHashMap<>();
     }
-
+/*
     public Ticket(String customerName, String subject, String body) {
         validateCustomerName(customerName);
         validateSubject(subject);
@@ -21,7 +27,7 @@ public class Ticket {
         this.subject = subject;
         this.body = body;
     }
-
+*/
     public String getCustomerName() {
         return customerName;
     }
@@ -65,5 +71,21 @@ public class Ticket {
         if(body == null || body.length() == 0){
             throw new IllegalArgumentException("Name required");
         }
+    }
+
+    public Attachment getAttachment(String name){
+        return attachments.get(name);
+    }
+
+    public Collection<Attachment> getAttachments(){
+        return attachments.values();
+    }
+
+    public void addAttachment(Attachment attachment){
+        attachments.put(attachment.getName(), attachment);
+    }
+
+    public int getNumberOfAttachments(){
+        return attachments.size();
     }
 }

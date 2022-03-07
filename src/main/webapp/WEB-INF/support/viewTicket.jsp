@@ -1,16 +1,49 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Pollock
-  Date: 3/2/2022
-  Time: 2:13 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.pollock.support.Ticket" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+<jsp:include page="/WEB-INF/include/header.jsp"/>
+<jsp:include page="/WEB-INF/include/navbar.jsp"/>
 
-</body>
-</html>
+<%
+    String ticketId = (String) request.getAttribute("ticketId");
+    Ticket ticket = (Ticket) request.getAttribute("ticket");
+%>
+
+<div class="container">
+    <%
+        if(ticket == null){
+    %>
+        <h1 class="mt-5">The ticket you requested cannot be found.</h1>
+    <%
+        } else {
+    %>
+        <h1 class="mt-5">Ticket #<%=ticketId%></h1>
+        <dl class="row">
+            <dt class="col-sm-4 col-md-3">Customer Name</dt>
+            <dd class="col-sm-8 col-md-9">
+                <p><%=ticket.getCustomerName()%></p>
+            </dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-4 col-md-3">Subject</dt>
+            <dd class="col-sm-8 col-md-9">
+                <p><%=ticket.getSubject()%></p>
+            </dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-4 col-md-3">Message</dt>
+            <dd class="col-sm-8 col-md-9">
+                <p><%=ticket.getBody()%></p>
+            </dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-4 col-md-3">Attachment</dt>
+            <dd class="col-sm-8 col-md-9">
+                <p><%=ticket.getNumberOfAttachments()%></p>
+            </dd>
+        </dl>
+    <%
+        }
+    %>
+</div>
+
+<jsp:include page="/WEB-INF/include/footer.jsp"/>
