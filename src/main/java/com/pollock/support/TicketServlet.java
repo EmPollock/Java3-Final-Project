@@ -22,7 +22,7 @@ public class TicketServlet extends HttpServlet {
     // View all tickets
     // /support/tickets?action=create
     // /support/tickets?action=view&ticketId=1
-    // /support/tickets?action=download&id=1
+    // /support/tickets?action=download&ticketId=1&attachment=file%20name.png
     // does not have to be "action", could be anything else
 
     private Map<Integer, Ticket> ticketDB;
@@ -47,7 +47,7 @@ public class TicketServlet extends HttpServlet {
                 viewTicket(request, response);
                 break;
             case "download":
-
+                downloadAttachment(request, response);
                 break;
             case "list":
             default:
@@ -64,6 +64,33 @@ public class TicketServlet extends HttpServlet {
         catch(Exception ex){
             request.setAttribute("error", true);
             request.setAttribute("errorMsg", ex.getMessage());
+        }
+    }
+
+    private void downloadAttachment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        String ticketId = request.getParameter("ticketId");
+        String fileName = request.getParameter("attachment");
+        Ticket ticket = getTicket(ticketId);
+
+        if(ticket == null || fileName == null || fileName.length() == 0){
+            // invalid ticket ID or file name, send back to home page (can change to send to an error screen)
+            response.sendRedirect("tickets");
+            return;
+        }
+
+        Attachment attachment = ticket.getAttachment(fileName);
+        if(attachment == null){
+            // invalid file name
+            response.sendRedirect("tickets");
+            return;
+        }
+
+        // valid ticket and attachment, download file
+        response.setHeader("Content-Disposition", "attachment; filename=" + attachment.getName()); // Content-Disposition asks the client to save or download the file, will not just display in browser
+        response.setContentType("application/octet-stream"); // octet-stream is used to indicate that a body contains arbitrary binary data (allows any file type)
+
+        try(ServletOutputStream stream = response.getOutputStream()){
+            stream.write(attachment.getContents());
         }
     }
 
@@ -114,6 +141,7 @@ public class TicketServlet extends HttpServlet {
         request.setAttribute("ticketId", idString);
         request.setAttribute("ticket", ticket);
         request.getRequestDispatcher("/WEB-INF/support/viewTicket.jsp").forward(request, response);
+
     }
 
     private Ticket getTicket(String idStr){
