@@ -47,10 +47,6 @@
                     <li>
                         <a href="tickets?action=download&ticketId=<%=ticketId%>&attachment=<%=attachment.getName()%>">
                         <%=attachment.getName()%></a>
-                        <a href="<c:url value="/tickets">
-                            <c:param name="action>" value="download"/>
-                            <c:param name="action>" value="download"/>
-</c:url>"></a>
                     </li>
                 <% } %>
                 </ul>
