@@ -1,4 +1,5 @@
 <%@ page import="com.pollock.support.Ticket" %>
+<%@ page import="com.pollock.support.Attachment" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="/WEB-INF/include/header.jsp"/>
 <jsp:include page="/WEB-INF/include/navbar.jsp"/>
@@ -35,12 +36,23 @@
                 <p><%=ticket.getBody()%></p>
             </dd>
         </dl>
+        <%
+            if(ticket.getNumberOfAttachments() > 0){
+        %>
         <dl class="row">
             <dt class="col-sm-4 col-md-3">Attachment</dt>
             <dd class="col-sm-8 col-md-9">
-                <p><%=ticket.getNumberOfAttachments()%></p>
+                <ul>
+                <% for(Attachment attachment : ticket.getAttachments()){%>
+                    <li>
+                        <a href="tickets?action=download&ticketId=<%=ticketId%>&attachment=<%=attachment.getName()%>">
+                        <%=attachment.getName()%></a>
+                    </li>
+                <% } %>
+                </ul>
             </dd>
         </dl>
+        <%  } %>
     <%
         }
     %>
