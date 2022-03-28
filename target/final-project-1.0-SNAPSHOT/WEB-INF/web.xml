@@ -11,4 +11,13 @@
         <servlet-name>MyServlet2</servlet-name>
         <url-pattern>/my-servlet2</url-pattern>
     </servlet-mapping>
+    <display-name>Java3 Final Project</display-name>
+    <session-config>
+        <session-timeout>30</session-timeout> <!-- minutes before timeout -->
+        <cookie-config> <!-- would flip these for a real application-->
+            <http-only>true</http-only>
+            <secure>false</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode> <!-- URL COOKIE or SSL -->
+    </session-config>
 </web-app>

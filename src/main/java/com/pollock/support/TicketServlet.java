@@ -35,6 +35,15 @@ public class TicketServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("numPagesVisited") == null){
+            session.setAttribute("numPagesVisited", 1);
+        }
+        else {
+            session.setAttribute("numPagesVisited", (Integer)session.getAttribute("numPagesVisited") + 1);
+        }
+
+        System.out.println("Pages Visited = " + (Integer)session.getAttribute("numPagesVisited"));
         String action = request.getParameter("action");
         if(action == null){
             action = "list";
@@ -68,6 +77,11 @@ public class TicketServlet extends HttpServlet {
     }
 
     private void downloadAttachment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        HttpSession session = request.getSession();
+        if(session.getAttribute("username") == null){
+            response.sendRedirect("login");
+            return;
+        }
         String ticketId = request.getParameter("ticketId");
         String fileName = request.getParameter("attachment");
         Ticket ticket = getTicket(ticketId);
@@ -95,6 +109,11 @@ public class TicketServlet extends HttpServlet {
     }
 
     private void listTickets(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        HttpSession session = request.getSession();
+        if(session.getAttribute("username") == null){
+            response.sendRedirect("login");
+            return;
+        }
         request.setAttribute("ticketData", ticketDB);
         request.getRequestDispatcher("/WEB-INF/support/listTickets.jsp").forward(request, response);
     }
@@ -132,10 +151,16 @@ public class TicketServlet extends HttpServlet {
         this.ticketDB.put(id, ticket);
 
         // go to detail page for new ticket
-        response.sendRedirect("tickets?action=view&ticketId=" + id);
+        request.setAttribute("ticketSubmitted", true);
+        request.getRequestDispatcher("/WEB-INF/support/ticketForm.jsp").forward(request, response);
     }
 
     private void viewTicket(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        HttpSession session = request.getSession();
+        if(session.getAttribute("username") == null){
+            response.sendRedirect("login");
+            return;
+        }
         String idString = request.getParameter("ticketId");
         Ticket ticket = getTicket(idString);
         request.setAttribute("ticketId", idString);

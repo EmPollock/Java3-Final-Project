@@ -45,10 +45,10 @@ public class StoreServlet extends HttpServlet {
                 viewCart(request, response);
                 break;
             case "emptyCart":
-
+                emptyCart(request, response);
                 break;
             case "removeFromCart":
-
+                removeFromCart(request, response);
                 break;
             case "browse":
             default:
@@ -91,5 +91,37 @@ public class StoreServlet extends HttpServlet {
     private void viewCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("products", products);
         request.getRequestDispatcher("/WEB-INF/ch05/viewCart.jsp").forward(request, response);
+    }
+
+    private void emptyCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Hashtable<Integer, Integer> cart = (Hashtable<Integer, Integer>)session.getAttribute("cart");
+        cart.clear();
+        //request.getSession().removeAttribute("cart"); // shorter text, probably more work over time though
+        response.sendRedirect("shop?page=viewCart");
+    }
+
+    private void removeFromCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        String itemId = request.getParameter("itemId");
+        int item;
+        try{
+            item = Integer.parseInt(itemId);
+        } catch (NumberFormatException ex){
+            response.sendRedirect("shop?page=viewCart");
+            return;
+        }
+        HttpSession session = request.getSession();
+        if(session.getAttribute("cart") == null){
+            response.sendRedirect("shop?page=viewCart");
+            return;
+        }
+        Hashtable<Integer, Integer> cart = (Hashtable<Integer, Integer>) session.getAttribute("cart");
+        if(!cart.containsKey(item)){
+            response.sendRedirect("shop?page=viewCart");
+            return;
+        } else{
+            cart.remove(item);
+        }
+        response.sendRedirect("shop?page=viewCart");
     }
 }
