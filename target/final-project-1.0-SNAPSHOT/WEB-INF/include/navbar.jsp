@@ -12,11 +12,28 @@
                         <a class="nav-link" aria-current="page" href="../ch04b/average">Average Calculator</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../support/tickets">View Tickets</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="../support/tickets?action=create">Create Ticket</a>
                     </li>
+                    <%
+                        if(session.getAttribute("username") != null){
+                    %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../support/tickets">View Tickets</a>
+                    </li>
+                    <% } %>
+                </ul>
+                <ul class="navbar-nav mb-auto me-3">
+                    <%
+                        if(session.getAttribute("username") != null){
+                    %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../support/login?logout">Logout</a>
+                        </li>
+                    <% } else {%>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../support/login">Login</a>
+                        </li>
+                    <% } %>
                 </ul>
             </div>
         </div>
