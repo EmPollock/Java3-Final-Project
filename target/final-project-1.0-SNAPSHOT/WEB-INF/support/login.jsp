@@ -6,11 +6,11 @@
 <div class="container">
     <h2 class="mt-5">Login</h2>
     <%
-        Boolean loggedOut = (Boolean)request.getAttribute("loggedOut");
-        if(loggedOut != null && loggedOut){
+        Boolean ticketSubmitted = (Boolean)request.getAttribute("ticketSubmitted");
+        if(ticketSubmitted != null && ticketSubmitted){
     %>
     <div class="alert alert-success">
-        <p>You have been logged out.</p>
+        <p>Thank you, we have received your trouble ticket.</p>
     </div>
     <%  }  %>
     <form method="POST" action="login">
