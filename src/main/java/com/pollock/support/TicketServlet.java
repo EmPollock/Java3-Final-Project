@@ -35,15 +35,6 @@ public class TicketServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if(session.getAttribute("numPagesVisited") == null){
-            session.setAttribute("numPagesVisited", 1);
-        }
-        else {
-            session.setAttribute("numPagesVisited", (Integer)session.getAttribute("numPagesVisited") + 1);
-        }
-
-        System.out.println("Pages Visited = " + (Integer)session.getAttribute("numPagesVisited"));
         String action = request.getParameter("action");
         if(action == null){
             action = "list";

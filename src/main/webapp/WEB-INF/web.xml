@@ -20,4 +20,6 @@
         </cookie-config>
         <tracking-mode>COOKIE</tracking-mode> <!-- URL COOKIE or SSL -->
     </session-config>
+
+    <distributable/> <!-- in order for Tomcat to require sessions to be serializable (distributable sessions) -->
 </web-app>
