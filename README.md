@@ -54,3 +54,14 @@ A Java Server Page, or JSP is a file that contains HTML and/or scripts that the 
 A .env file is used to store environment variables for a project. In this chapter I used a .env file to store authentication information for Twilio so that I could put my code on GitHub without exposing that information. When using a .env file for this purpose, it is important to remember to add .env to the .gitignore file.
 
 More than anything, learning to use Twilio was an interesting way to practice and learn more general concepts such as using JSPs, validating form data, using .env files, and adding libraries to a project using Maven.
+
+## Chapter 5
+
+In chapter 5 I learned about:
+
+- Ways to use sessions
+- Setting and retrieving session data
+
+The two ways to use sessions I encountered were cookies stored in the browser and session URLs. Though cookies can be disabled, it is considered best practice to use them instead of session URLs. This is because session URLs are not very secure and are susceptible to session hijacking. 
+
+I found setting and retrieving session data using Servlets and JSPs easy because of how similar it is to setting and retrieving data from the request object.
