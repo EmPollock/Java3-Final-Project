@@ -28,6 +28,10 @@
             <li><a href="ch04b/temp-converter">Assignment 4.5 -Temp Converter</a></li>
         </ul>
     </li>
+    <li>Chapter 5
+        <ul><a href="ch05/shop">In class - Store</a></ul>
+        <ul><a href="songs?go=view">Assignment 5 - Songs</a></ul>
+    </li>
 </ul>
 </body>
 </html>

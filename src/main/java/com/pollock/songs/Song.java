@@ -6,6 +6,22 @@ public class Song {
     private String artist;
     private String youtube;
 
+    public static int nextID = 0;
+
+    public Song(String name, String artist, String youtube) {
+        this.songID = nextID++;
+        this.name = name;
+        this.artist = artist;
+        this.youtube = youtube;
+    }
+
+    public Song() {
+        this.songID = nextID++;
+        this.name = "";
+        this.artist = "";
+        this.youtube = "";
+    }
+
     public int getSongID() {
         return songID;
     }
