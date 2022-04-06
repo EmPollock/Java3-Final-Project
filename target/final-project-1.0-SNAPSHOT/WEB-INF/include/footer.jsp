@@ -1,7 +1,7 @@
 </main>
 <footer class="footer mt-auto py-3 bg-info text-white">
     <div class="container">
-        <span class="text-light">Created by Emma Pollock, February 2022</span>
+        <span class="text-light">Created by Emma Pollock, 2022</span>
     </div>
 </footer>
 

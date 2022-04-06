@@ -22,4 +22,13 @@
     </session-config>
 
     <distributable/> <!-- in order for Tomcat to require sessions to be serializable (distributable sessions) -->
+
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+            <include-prelude>/base.jspf</include-prelude>
+            <default-content-type>text/html</default-content-type>
+        </jsp-property-group>
+    </jsp-config>
 </web-app>

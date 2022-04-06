@@ -14,7 +14,12 @@ public class UserProfileServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        User user1 = (new User(1, "tess@company.com", "Tess", "Data"));
+        User user1 = (new User());
+        user1.setUserID(1);
+        user1.setUsername("tess@company.com");
+        user1.setFirstName("Tess");
+        user1.setLastName("Data");
+
         Map<String, Boolean> permissions = new Hashtable<>();
         permissions.put("active", true);
         permissions.put("admin", true);
@@ -23,7 +28,11 @@ public class UserProfileServlet extends HttpServlet {
         users.add(user1);
         usersArr[0] = user1;
 
-        User user2 = (new User(2, "sample@example.com", "Sam", "Ple"));
+        User user2 = (new User());
+        user1.setUserID(2);
+        user1.setUsername("sample@example.com");
+        user1.setFirstName("Sam");
+        user1.setLastName("Ple");
         Map<String, Boolean> permissions2 = new Hashtable<>();
         permissions2.put("active", true);
         permissions2.put("admin", false);
