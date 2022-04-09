@@ -65,3 +65,16 @@ In chapter 5 I learned about:
 The two ways to use sessions I encountered were cookies stored in the browser and session URLs. Though cookies can be disabled, it is considered best practice to use them instead of session URLs. This is because session URLs are not very secure and are susceptible to session hijacking. 
 
 I found setting and retrieving session data using Servlets and JSPs easy because of how similar it is to setting and retrieving data from the request object.
+
+## Chapter 6
+
+In chapter 6 I learned about: 
+
+- Expression Language
+- Java Beans
+
+Expression Language is an often more readable replacement for declarations, scriplets, and expressions (discussed in Chapter 4). It uses a dollar sign, then the name of an attribute set on the page, session, request, or application inside a set of curly brackets. The server will search for the attribute on all four in the order they were previously listed. 
+
+Though it tends to make the code more readable, it cannot be used in all situations. For example, if you need to display a list of strings set on the request object, you can't run a for loop using the object from expression language, and would have to use a scriplet instead.
+
+Java Beans are Java classes that have a constructor with no arguments, have get and set methods with traditional naming conventions, and implement Serializable or Externalizable. Tomcat requires objects to implement Serializable in order to be set as attributes on the session.
