@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-@WebServlet(name = "ListServlet", value = "/ListServlet")
+@WebServlet(name = "ListServlet", value = "/ch07/list")
 public class ListServlet extends HttpServlet {
 
     private static final SortedSet<User> contacts = new TreeSet<>();

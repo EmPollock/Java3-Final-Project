@@ -9,16 +9,16 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="../ch04b/average">Average Calculator</a>
+                        <a class="nav-link" aria-current="page" href="<c:url value="/ch04b/average"/>">Average Calculator</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../support/tickets?action=create">Create Ticket</a>
+                        <a class="nav-link" href="<c:url value="/support/tickets"><c:param name="action" value="create"></c:param></c:url>">Create Ticket</a>
                     </li>
                     <%
                         if(session.getAttribute("username") != null){
                     %>
                     <li class="nav-item">
-                        <a class="nav-link" href="../support/tickets">View Tickets</a>
+                        <a class="nav-link" href="<c:url value="/support/tickets"/>">View Tickets</a>
                     </li>
                     <% } %>
                 </ul>
@@ -27,11 +27,11 @@
                         if(session.getAttribute("username") != null){
                     %>
                         <li class="nav-item">
-                            <a class="nav-link" href="../support/login?logout">Logout</a>
+                            <a class="nav-link" href="<c:url value="/support/login"><c:param name="logout"></c:param></c:url>">Logout</a>
                         </li>
                     <% } else {%>
                         <li class="nav-item">
-                            <a class="nav-link" href="../support/login">Login</a>
+                            <a class="nav-link" href="<c:url value="/support/login"/>">Login</a>
                         </li>
                     <% } %>
                 </ul>
