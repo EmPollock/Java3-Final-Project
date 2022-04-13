@@ -1,22 +1,19 @@
-package com.pollock.support;
+package com.pollock.ch06;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.Hashtable;
-import java.util.Map;
 
-/* SEE CHAPTER 25 FOR SECURE LOGIN */
-@WebServlet(name = "LoginServlet", value = "/support/login")
-public class LoginServlet extends HttpServlet {
-
+@WebServlet(name = "AlertLoginServlet", value = "/alert/login")
+public class AlertLoginServlet extends HttpServlet {
     private static final Hashtable<String, String> users = new Hashtable<>();
 
     @Override
     public void init() throws ServletException {
-        users.put("TessData", "newUser");
-        users.put("Me", "P@ssw0rd");
+        users.put("tess-data@kirkwood.edu", "newuser");
+        users.put("emma-pollock@student.kirkwood.edu", "P@ssw0rd");
     }
 
     @Override
@@ -26,11 +23,16 @@ public class LoginServlet extends HttpServlet {
             session.removeAttribute("username");
             request.setAttribute("loggedOut", true);
         }
+        if(request.getParameter("register") != null){
+            response.sendRedirect("/WEB-INF/alert/register.jsp");
+        }
         if(session.getAttribute("username") != null){
-            response.sendRedirect("tickets");
+            response.sendRedirect("songs");
             return;
         }
-        request.getRequestDispatcher("/WEB-INF/support/login.jsp").forward(request, response);
+
+
+        request.getRequestDispatcher("/WEB-INF/alert/login.jsp").forward(request, response);
     }
 
     @Override
@@ -40,18 +42,17 @@ public class LoginServlet extends HttpServlet {
         request.setAttribute("loginFailed", false);
         if(
                 username == null || username.length() == 0 ||
-                password == null || password.length() == 0 ||
-                !users.containsKey(username) || !password.equals(users.get(username))
+                        password == null || password.length() == 0 ||
+                        !users.containsKey(username) || !password.equals(users.get(username))
         ){
             request.setAttribute("loginFailed", true);
             request.setAttribute("errorMsg", "login attempt failed");
-            request.getRequestDispatcher("/WEB-INF/support/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/alert/login.jsp").forward(request, response);
         } else{
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
-            session.setAttribute("numPagesVisited", 0);
             request.changeSessionId();
-            response.sendRedirect("tickets");
+            response.sendRedirect("alert");
         }
 
 
