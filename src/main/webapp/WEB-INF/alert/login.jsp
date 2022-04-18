@@ -4,18 +4,11 @@
 
 <div class="container">
     <h2 class="mt-5">Login</h2>
-    <%
-        Boolean ticketSubmitted = (Boolean)request.getAttribute("ticketSubmitted");
-        if(ticketSubmitted != null && ticketSubmitted){
-    %>
-    <div class="alert alert-success">
-        <p>Thank you, we have received your trouble ticket.</p>
-    </div>
-    <%  }  %>
+
     <form method="POST" action="login">
         <div class="form-group mb-2">
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" class="form-control">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" class="form-control">
         </div>
         <div class="form-group mb-2">
             <label for="password">Password</label>
@@ -34,7 +27,7 @@
 
         <input type="submit" value="Login" class="btn btn-secondary mb-5">
     </form>
-    <a href="/alert/login?register" class="btn btn-secondary" >Register</a>
+    <a href="login?register" class="btn btn-secondary" >Register</a>
 </div>
 
 <jsp:include page="/WEB-INF/include/footer.jsp"/>

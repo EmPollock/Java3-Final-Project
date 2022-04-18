@@ -22,9 +22,11 @@ public class User implements Serializable, Comparable<User>{ // setting a non-se
     private LocalDate birthday;
     private Instant lastUpdated;
     private BigDecimal balance;
+    public static long nextID = 1;
 
     public User() {
-        this.userID = 0L;
+        this.userID = nextID;
+        nextID++;
         this.username = "";
         this.firstName = "";
         this.lastName = "";
@@ -34,8 +36,9 @@ public class User implements Serializable, Comparable<User>{ // setting a non-se
         this.balance = BigDecimal.ZERO;
     }
 
-    public User(long userID, String username, String firstName, String lastName, String phoneNumber, LocalDate birthday, Instant lastUpdated, BigDecimal balance) {
-        this.userID = userID;
+    public User(String username, String firstName, String lastName, String phoneNumber, LocalDate birthday, Instant lastUpdated, BigDecimal balance) {
+        this.userID = nextID;
+        nextID++;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -98,10 +101,6 @@ public class User implements Serializable, Comparable<User>{ // setting a non-se
 
     public long getUserID() {
         return userID;
-    }
-
-    public void setUserID(long userID) {
-        this.userID = userID;
     }
 
     public String getUsername() {

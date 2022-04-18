@@ -15,7 +15,6 @@ public class UserProfileServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         User user1 = (new User());
-        user1.setUserID(1);
         user1.setUsername("tess@company.com");
         user1.setFirstName("Tess");
         user1.setLastName("Data");
@@ -29,7 +28,6 @@ public class UserProfileServlet extends HttpServlet {
         usersArr[0] = user1;
 
         User user2 = (new User());
-        user1.setUserID(2);
         user1.setUsername("sample@example.com");
         user1.setFirstName("Sam");
         user1.setLastName("Ple");
