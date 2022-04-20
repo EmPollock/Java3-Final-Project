@@ -5,19 +5,20 @@ import com.pollock.ch06.User;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
+import javax.servlet.jsp.jstl.core.Config;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
+import java.util.Locale;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 @WebServlet(name = "ListServlet", value = "/ch07/list")
 public class ListServlet extends HttpServlet {
-
     private static final SortedSet<User> contacts = new TreeSet<>();
 
     @Override
@@ -29,6 +30,19 @@ public class ListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String language = request.getParameter("lang");
+        if(language == null){
+            language="en";
+        }
+        switch(language){
+            case "fr":
+                Config.set(request, Config.FMT_LOCALE, Locale.FRENCH);
+                break;
+            case"en":
+            default:
+                Config.set(request, Config.FMT_LOCALE, Locale.ENGLISH);
+        }
+
         request.setAttribute("contacts", contacts);
         request.getRequestDispatcher("/WEB-INF/ch07/list.jsp").forward(request, response);
     }

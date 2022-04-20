@@ -23,7 +23,8 @@ public class SupportLoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         if(request.getParameter("logout")  != null){
             session.removeAttribute("username");
-            request.setAttribute("loggedOut", true);
+            response.sendRedirect(request.getContextPath() + "/support/login");
+            return;
         }
         if(session.getAttribute("username") != null){
             response.sendRedirect("tickets");
