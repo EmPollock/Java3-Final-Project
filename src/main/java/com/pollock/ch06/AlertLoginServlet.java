@@ -9,7 +9,7 @@ import java.util.Map;
 
 @WebServlet(name = "AlertLoginServlet", value = "/alert/login")
 public class AlertLoginServlet extends HttpServlet {
-    private static final Hashtable<User, String> users = new Hashtable<>();
+    private static Hashtable<User, String> users = new Hashtable<>();
 
     @Override
     public void init() throws ServletException {
@@ -29,6 +29,7 @@ public class AlertLoginServlet extends HttpServlet {
         user1.setUsername("emma-pollock@student.kirkwood.edu");
         user1.setFirstName("Emma");
         user1.setLastName("Pollock");
+        user1.setPhoneNumber("319 440 6888");
         Map<String, Boolean> permissions2 = new Hashtable<>();
         permissions2.put("active", true);
         permissions2.put("admin", false);
@@ -40,6 +41,13 @@ public class AlertLoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        if(session.getAttribute("users") != null){
+            users = (Hashtable<User, String>) session.getAttribute("users");
+        }
+        else{
+            session.setAttribute("users", users);
+        }
+
         if(request.getParameter("logout")  != null){
             session.removeAttribute("email");
             request.setAttribute("loggedOut", true);
@@ -58,11 +66,10 @@ public class AlertLoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("registerFailed", false);
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        boolean valid = true;
         if(request.getParameter("register") != null){
+            request.setAttribute("registerFailed", false);
             password = request.getParameter("password1");
             String confirmPassword = request.getParameter("password2");
             String firstName = request.getParameter("firstName");
@@ -119,6 +126,7 @@ public class AlertLoginServlet extends HttpServlet {
                 users.put(user, password);
 
                 HttpSession session = request.getSession();
+                session.setAttribute("users", users);
                 session.setAttribute("username", email);
                 request.changeSessionId();
                 request.setAttribute("success", true);
@@ -127,10 +135,7 @@ public class AlertLoginServlet extends HttpServlet {
         }
         else{
             request.setAttribute("loginFailed", false);
-            if(
-                    email == null || email.length() == 0 ||
-                    password == null || password.length() == 0
-            ){
+            if(email == null || email.length() == 0 || password == null || password.length() == 0){
                 request.setAttribute("loginFailed", true);
                 request.setAttribute("errorMsg", "login attempt failed");
                 request.getRequestDispatcher("/WEB-INF/alert/login.jsp").forward(request, response);
@@ -153,6 +158,7 @@ public class AlertLoginServlet extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("username", email);
                     request.changeSessionId();
+                    session.setAttribute("users", users);
                     response.sendRedirect("kirkwood");
                 }
             }
