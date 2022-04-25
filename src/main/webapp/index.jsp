@@ -32,6 +32,10 @@
         <ul><a href="ch05/shop">In class - Store</a></ul>
         <ul><a href="songs?go=view">Assignment 5 - Songs</a></ul>
     </li>
+    <li>Chapter 6
+        <ul><a href="alert/login">Assignment 6 - Alerts</a></ul>
+    </li>
+    <li><a href="donation">Donations (Final Project)</a></li>
 </ul>
 </body>
 </html>
