@@ -13,7 +13,7 @@ public class DonationServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        //donations = donationAccessor.getDonations();
+        donations = donationAccessor.getDonations();
     }
 
     @Override
