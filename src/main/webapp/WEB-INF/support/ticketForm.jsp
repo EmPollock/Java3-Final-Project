@@ -10,19 +10,19 @@
 <jsp:include page="/WEB-INF/include/navbar.jsp"/>
     <div class="container">
         <h1 class="mt-5">Create a Ticket</h1>
-        <%
-            Boolean ticketSubmitted = (Boolean)request.getAttribute("ticketSubmitted");
-            if(ticketSubmitted != null && ticketSubmitted){
-        %>
-        <div class="alert alert-success">
-            <p>Thank you, we have received your trouble ticket.</p>
-        </div>
-        <%  }  %>
-        <form class="mt-5" method="POST" action="tickets" enctype="multipart/form-data">
+        <c:if test="${ticketSubmitted}">
+            <div class="alert alert-success">
+                <p>Thank you, we have received your trouble ticket.</p>
+            </div>
+        </c:if>
+        <form class="mt-5" method="POST" action="<c:url value="/support/tickets">" enctype="multipart/form-data">
             <div class="form-group mb-2">
                 <label for="name">Your Name</label>
                 <input type="text" name="name" id="name" class="form-control"
-                       value="<%=session.getAttribute("username") != null ? session.getAttribute("username") : ""%>">
+                    <c:if test="${not empty username}">
+                       value="${username}"
+                    </c:if>
+                >
             </div>
             <div class="form-group mb-2">
                 <label for="subject">Subject</label>

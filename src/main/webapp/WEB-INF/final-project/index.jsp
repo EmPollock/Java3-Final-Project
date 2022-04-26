@@ -11,11 +11,13 @@
                     <c:choose>
                         <c:when test="${donation.postName}">
                             <c:choose>
-                                <c:when test="${donation.donors.size} == 1">
-                                    <strong>Donors:</strong>
+                                <c:when test="${fn:length(donation.donors) == 0}">
+                                    <strong>Donor:</strong>
+                                    donor
                                 </c:when>
                                 <c:otherwise>
-                                    <strong>Donor:</strong>
+                                    <strong>Donors:</strong>
+                                    donors
                                 </c:otherwise>
                             </c:choose>
                         </c:when>
@@ -45,7 +47,7 @@
 
                 <div>
                     <strong>Note:</strong>
-                    <p>${donation.note}</p>
+                    <p><c:out value="${donation.note}"/></p>
                 </div>
             </div>
             <br>

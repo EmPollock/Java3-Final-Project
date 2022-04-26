@@ -14,26 +14,26 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<c:url value="/support/tickets"><c:param name="action" value="create"></c:param></c:url>">Create Ticket</a>
                     </li>
-                    <%
-                        if(session.getAttribute("username") != null){
-                    %>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value="/support/tickets"/>">View Tickets</a>
-                    </li>
-                    <% } %>
+
+                    <c:if test="${not empty username}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/support/tickets"/>">View Tickets</a>
+                        </li>
+                    </c:if>
                 </ul>
                 <ul class="navbar-nav mb-auto me-3">
-                    <%
-                        if(session.getAttribute("username") != null){
-                    %>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<c:url value="/support/login"><c:param name="logout"></c:param></c:url>">Logout</a>
-                        </li>
-                    <% } else {%>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<c:url value="/support/login"/>">Login</a>
-                        </li>
-                    <% } %>
+                    <c:choose>
+                        <c:when test="${not empty username}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="<c:url value="/support/login"><c:param name="logout"></c:param></c:url>">Logout</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<c:url value="/support/login"/>">Login</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
             </div>
         </div>
