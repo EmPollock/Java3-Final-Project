@@ -28,7 +28,7 @@
                             </li>
                         </c:when>
                         <c:otherwise>
-                            <li class="nav-item">
+                            <li class="nav-item" style="list-style-type: none">
                                 <a class="nav-link" href="<c:url value="#"/>">Login</a>
                             </li>
                         </c:otherwise>

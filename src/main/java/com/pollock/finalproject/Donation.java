@@ -46,7 +46,7 @@ public class Donation implements Serializable, Comparable<Donation>{
     }
 
     public Donation(String id, String dateTimeProcessed, String amount, String frequency, String ending,
-                    String applyTo, String note, ArrayList<Person> donor, boolean postAmount, boolean postName) {
+                    String applyTo, String note, ArrayList<Person> donors, boolean postAmount, boolean postName) {
         try {
             setId(id);
             setDateTimeProcessed(dateTimeProcessed);

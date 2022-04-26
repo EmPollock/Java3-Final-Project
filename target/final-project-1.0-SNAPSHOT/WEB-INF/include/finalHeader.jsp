@@ -20,4 +20,4 @@
     <!-- Custom styles for this template -->
     <link href="sticky-footer-navbar.css" rel="stylesheet">
 </head>
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column h-100 light">

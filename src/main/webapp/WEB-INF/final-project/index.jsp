@@ -3,6 +3,8 @@
 <jsp:include page="/WEB-INF/include/finalNavbar.jsp"/>
 
 <div class="container">
+    <br/>
+    <br/>
     <h2>Past Donations</h2>
     <div>
         <c:forEach var="donation" items="${donationList}">
@@ -13,13 +15,17 @@
                             <c:choose>
                                 <c:when test="${fn:length(donation.donors) == 0}">
                                     <strong>Donor:</strong>
-                                    donor
                                 </c:when>
                                 <c:otherwise>
                                     <strong>Donors:</strong>
-                                    donors
                                 </c:otherwise>
                             </c:choose>
+                            <p>
+                                <c:forEach items="${donation.donors}" var="donor">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <c:out value="${donor.givenName}"/> <c:out value="${donor.familyName}"/><br>
+                                </c:forEach>
+                            </p>
                         </c:when>
                         <c:otherwise>
                             <strong>Donor:</strong>
@@ -31,6 +37,8 @@
                 <div>
                     <strong>Date:</strong>
                     <fmt:formatDate value="${donation.newDateTimeProcessed}"/>
+                    <br/>
+                    <br/>
                 </div>
 
                 <div>
@@ -49,6 +57,7 @@
                     <strong>Note:</strong>
                     <p><c:out value="${donation.note}"/></p>
                 </div>
+                <a class="btn btn-primary" href="">View Details</a>
             </div>
             <br>
             <br>
