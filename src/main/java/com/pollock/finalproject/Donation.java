@@ -6,6 +6,7 @@ import java.text.NumberFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -264,6 +265,10 @@ public class Donation implements Serializable, Comparable<Donation>{
 
     public Date getNewDateTimeProcessed(){
         return Date.from(dateTimeProcessed);
+    }
+
+    public Date getNewEnding(){
+        return Date.from(ending.atStartOfDay(ZoneId.of("America/Chicago")).toInstant());
     }
 
     public boolean isANumber(String num){

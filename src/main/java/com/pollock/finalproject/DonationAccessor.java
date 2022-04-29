@@ -90,4 +90,14 @@ public class DonationAccessor {
     public ArrayList<Donation> getDonations(){
         return donations;
     }
+    public Donation SelectDonationByID(int donationID){
+        Donation result = null;
+        for(Donation d : donations){
+            if(d.getId() == donationID){
+                result = d;
+                break;
+            }
+        }
+        return result;
+    }
 }

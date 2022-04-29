@@ -9,7 +9,10 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="<c:url value="#"/>">Thank you!</a>
+                        <a class="nav-link" aria-current="page" href="
+                            <c:url value="/donation">
+                                <c:param name="action" value="list"/>
+                            </c:url>">Thank you!</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<c:url value="#"></c:url>">Donate</a>

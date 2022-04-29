@@ -54,10 +54,15 @@
                 </div>
 
                 <div>
+                    <strong>Apply to:</strong>
+                    <c:out value="${donation.applyTo}"/>
+                </div>
+
+                <div>
                     <strong>Note:</strong>
                     <p><c:out value="${donation.note}"/></p>
                 </div>
-                <a class="btn btn-primary" href="">View Details</a>
+                <a class="btn btn-primary" href="<c:url value="/donation"><c:param name="action" value="view"/> <c:param name="donationID" value="${donation.id}"/></c:url>">View Details</a>
             </div>
             <br>
             <br>
