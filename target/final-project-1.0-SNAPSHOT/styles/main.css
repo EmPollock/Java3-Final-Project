@@ -11,3 +11,8 @@ a{
 a:hover{
     color: cyan;
 }
+
+#note{
+    max-width: 50em;
+    min-height: 10em;
+}

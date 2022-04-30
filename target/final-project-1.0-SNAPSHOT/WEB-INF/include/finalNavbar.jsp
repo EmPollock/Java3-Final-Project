@@ -15,7 +15,7 @@
                             </c:url>">Thank you!</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<c:url value="#"></c:url>">Donate</a>
+                        <a class="nav-link" href="<c:url value="/donation"><c:param name="action" value="donate"/></c:url>">Donate</a>
                     </li>
 
                     <c:if test="${username} != null">

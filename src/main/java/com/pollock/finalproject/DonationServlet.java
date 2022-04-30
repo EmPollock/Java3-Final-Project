@@ -5,6 +5,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @WebServlet(name = "DonationServlet", value = "/donation")
 public class DonationServlet extends HttpServlet {
@@ -22,7 +23,7 @@ public class DonationServlet extends HttpServlet {
                 donationDetails(request, response);
                 break;
             case "donate":
-
+                createDonation(request, response);
                 break;
             case "my-donations":
 
@@ -63,6 +64,10 @@ public class DonationServlet extends HttpServlet {
             request.setAttribute("errorMsg", "Something went wrong. Please pick a different donation to view.");
         }
         request.getRequestDispatcher("/WEB-INF/final-project/donationDetails.jsp").forward(request, response);
+    }
+
+    private void createDonation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/final-project/donate.jsp").forward(request, response);
     }
 
     private boolean isAnInt(String str){

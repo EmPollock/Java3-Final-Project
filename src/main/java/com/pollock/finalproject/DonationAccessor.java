@@ -100,4 +100,9 @@ public class DonationAccessor {
         }
         return result;
     }
+    public void InsertDonation(Donation donation){
+        donation.setId(nextID);
+        nextID++;
+        donations.add(donation);
+    }
 }

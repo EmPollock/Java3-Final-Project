@@ -32,6 +32,7 @@ public class Donation implements Serializable, Comparable<Donation>{
     private static final int MAX_APPLY_TO_LENGTH = 100;
     private static final int MIN_NOTE_LENGTH = 0;
     private static final int MAX_NOTE_LENGTH = 250;
+    private static final int MAX_DONORS = 3;
 
     public Donation() {
         id = -1;
@@ -56,7 +57,7 @@ public class Donation implements Serializable, Comparable<Donation>{
             setEnding(ending);
             setApplyTo(applyTo);
             setNote(note);
-            this.donors = donors;
+            setDonors(donors);
             setPostAmount(postAmount);
             setPostName(postName);
         } catch (Exception ex){
@@ -79,7 +80,20 @@ public class Donation implements Serializable, Comparable<Donation>{
         ids.add(this.id);
     }
 
-    private void validateID(String num){
+    public void setId(int id) {
+        try{
+            if (idExists(id)){
+                throw new IllegalArgumentException("ID already exists. Choose a new ID.");
+            }
+        } catch(Exception ex){
+            throw ex;
+        }
+
+        this.id = id;
+        ids.add(this.id);
+    }
+
+    public void validateID(String num){
         try{
             if(isAnInt(num)) {
                 if (idExists(Integer.parseInt(num))) {
@@ -106,7 +120,7 @@ public class Donation implements Serializable, Comparable<Donation>{
         this.dateTimeProcessed = Instant.parse(dateTimeProcessed);
     }
 
-    private void validateDateTimeProcessed(String dateTimeProcessed){
+    public void validateDateTimeProcessed(String dateTimeProcessed){
         try{
             Instant.parse(dateTimeProcessed);
         } catch (Exception ex){
@@ -127,7 +141,7 @@ public class Donation implements Serializable, Comparable<Donation>{
         this.amount = Double.parseDouble(amount);
     }
 
-    private void validateAmount(String amount){
+    public void validateAmount(String amount){
         if(!isANumber(amount)){
             throw new IllegalArgumentException("Amount provided is not a number.");
         }
@@ -146,7 +160,7 @@ public class Donation implements Serializable, Comparable<Donation>{
         this.frequency = frequency;
     }
 
-    private void validateFrequency(String frequency){
+    public void validateFrequency(String frequency){
         if(frequency.length() < MIN_FREQUENCY_LENGTH){
             throw new IllegalArgumentException("Frequency length is too short.");
         }
@@ -168,7 +182,7 @@ public class Donation implements Serializable, Comparable<Donation>{
         this.ending = LocalDate.parse(ending);
     }
 
-    private void validateEnding(String ending){
+    public void validateEnding(String ending){
         try{
            LocalDate parsedDate = LocalDate.parse(ending);
            /*if(parsedDate.compareTo(LocalDate.now()) > 0){
@@ -192,7 +206,7 @@ public class Donation implements Serializable, Comparable<Donation>{
         this.applyTo = applyTo;
     }
 
-    private void validateApplyTo(String applyTo){
+    public void validateApplyTo(String applyTo){
         if(applyTo.length() < MIN_APPLY_TO_LENGTH){
             throw new IllegalArgumentException("Apply To is required.");
         }
@@ -214,7 +228,7 @@ public class Donation implements Serializable, Comparable<Donation>{
         this.note = note;
     }
 
-    private void validateNote(String note){
+    public void validateNote(String note){
         if(note.length() < MIN_NOTE_LENGTH){
             throw new IllegalArgumentException("Note is too short. It must be at least " + MIN_NOTE_LENGTH + " characters long.");
         }
@@ -229,18 +243,32 @@ public class Donation implements Serializable, Comparable<Donation>{
 
     public void setDonors(ArrayList<Person> donors) {
         try {
+            validateDonors(donors);
             this.donors = donors;
         } catch(Exception ex){
             throw ex;
         }
     }
 
+    public void validateDonors(ArrayList<Person> donors){
+        if(donors.size() > MAX_DONORS){
+            throw new IllegalArgumentException("The maximum number of donors for one donation is " + MAX_DONORS + ".");
+        }
+    }
+
     public void addDonor(Person donor){
         try {
+            if(isDonorsFull()){
+                throw new IllegalArgumentException("The donor list is full. Please remove a donor before adding another.");
+            }
             this.donors.add(donor);
         } catch(Exception ex){
             throw ex;
         }
+    }
+
+    public boolean isDonorsFull(){
+        return donors.size() == MAX_DONORS;
     }
 
     public void removeDonor(Person donor){
