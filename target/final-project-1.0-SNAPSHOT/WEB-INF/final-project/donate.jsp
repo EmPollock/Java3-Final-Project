@@ -5,7 +5,7 @@
 <div class="container">
     <br/>
     <br/>
-    <form method="POST" action="donation" class="table text-black">
+    <form method="POST" action="<c:url value="/donation"><c:param name="action" value="donate"/></c:url>" class="table text-black">
         <div class="form-group">
             <h4>Donors</h4>
                 <div class="control-group row">
