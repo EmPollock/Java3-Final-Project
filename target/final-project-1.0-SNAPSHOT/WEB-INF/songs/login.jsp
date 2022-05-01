@@ -4,15 +4,13 @@
 <main class="flex-shrink-0">
     <div class="container">
         <h2 class="mt-5">Login</h2>
-        <%
-            Boolean loggedOut = (Boolean)request.getAttribute("loggedOut");
-            if(loggedOut != null && loggedOut){
-        %>
-        <div class="alert alert-success">
-            <p>You have been logged out.</p>
-        </div>
-        <%  }  %>
-        <form method="POST" action="login">
+
+        <c:if test="${loggedOut}">
+            <div class="alert alert-success">
+                <p>You have been logged out.</p>
+            </div>
+        </c:if>
+        <form method="POST" action="<c:url value="/login"></c:url>">
             <div class="form-group mb-2">
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" class="form-control">
@@ -22,15 +20,11 @@
                 <input type="password" name="password" id="password" class="form-control">
             </div>
 
-            <%
-                Boolean loginFailed = (Boolean)request.getAttribute("loginFailed");
-                if(loginFailed == null) loginFailed = false;
-                if(loginFailed) {
-            %>
-            <div class="alert alert-danger" role="alert">
-                Error: <%= request.getAttribute("errorMsg") %>
-            </div>
-            <% } %>
+            <c:if test="${loginFailed}">
+                <div class="alert alert-danger" role="alert">
+                    Error: <c:out value="${errorMsg}"/>
+                </div>
+            </c:if>
 
             <input type="submit" value="Login" class="btn btn-secondary mb-5">
         </form>
