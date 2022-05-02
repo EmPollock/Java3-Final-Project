@@ -1,3 +1,8 @@
+* {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
 body {
     background-color: hsl(0, 0%, 20%);
     color: #fff;
@@ -13,6 +18,51 @@ td, th {
     border: 1px solid #999;
     padding: 0.5rem;
     text-align: left;
+}
+
+.container {
+    color: white;
+    text-align: center;
+    width: 600px;
+    margin: 0 auto;
+}
+
+.pagination {
+    font-size: 0;
+    margin: 0 0 10px;
+}
+.pagination a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: inline-block;
+    background-color: hsl(0, 0%, 25%);
+    font-size: 16px;
+}
+.pagination a:hover {
+    color: white;
+    background-color: hsl(0, 0%, 45%);
+}
+.pagination a.active {
+    background-color: hsl(0, 0%, 65%);
+}
+
+.people {
+    background-color: hsl(0, 0%, 25%);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+.person {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    width: 150px;
+    text-align: center;
+    padding: 10px;
+}
+.person p {
+    margin: 5px 0 0;
 }
 
 th:nth-child(1) { background: hsl(0, 75%, 50%); }
