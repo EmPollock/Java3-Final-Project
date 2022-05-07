@@ -5,6 +5,16 @@
 <div class="container">
     <br/>
     <br/>
+    <c:if test="${success != null}">
+        <c:choose>
+            <c:when test="${success}">
+                <p class="text-success">Thank you for donating!</p>
+            </c:when>
+            <c:otherwise>
+                <p class="text-danger">${errorMsg}</p>
+            </c:otherwise>
+        </c:choose>
+    </c:if>
     <form method="POST" action="<c:url value="/donation"></c:url>" class="table text-black">
         <div class="form-group">
             <h4>Donors</h4>

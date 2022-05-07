@@ -3,6 +3,7 @@ package com.pollock.finalproject;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class DonationAccessor {
     private Integer nextID = 10000;
@@ -104,5 +105,6 @@ public class DonationAccessor {
         donation.setId(nextID);
         nextID++;
         donations.add(donation);
+        Collections.sort(donations, Collections.reverseOrder());
     }
 }

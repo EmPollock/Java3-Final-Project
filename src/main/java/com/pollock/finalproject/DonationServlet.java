@@ -49,21 +49,28 @@ public class DonationServlet extends HttpServlet {
             request.setAttribute("error", true);
             request.setAttribute("errorMsg", ex.getMessage());
         }
-        request.setAttribute("donationSubmitted", true);
         request.getRequestDispatcher("/WEB-INF/final-project/donate.jsp").forward(request, response);
     }
 
     private void createDonation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
+            boolean success = true;
+            request.setAttribute("success", false);
             ArrayList<Person> donors = new ArrayList<>();
+
             String givenName1 = request.getParameter("givenName1");
+            boolean person1Exists = true;
             if(givenName1 == null || givenName1.equals("")){
                 request.setAttribute("givenName1Error","Please input at least one donor.");
+                person1Exists = false;
+                success = false;
             }
             String familyName1 = request.getParameter("familyName1");
             String email1 = request.getParameter("email1");
             if(familyName1 == null || familyName1.equals("") || email1 == null || email1.equals("")){
                 request.setAttribute("familyName1Error", "Please finish filling out person 1 information.");
+                person1Exists = false;
+                success = false;
             }
 
             String givenName2 = request.getParameter("givenName2");
@@ -76,6 +83,7 @@ public class DonationServlet extends HttpServlet {
                 // if the user hasn't filled out all info for person 2 (email not required)
                 if(givenName2 == null || givenName2.equals("") || familyName1 == null || familyName2.equals("")) {
                     request.setAttribute("givenName2Error","Please finish filling out person 2 information.");
+                    success = false;
                 }
                 person2Exists = true;
             }
@@ -90,11 +98,14 @@ public class DonationServlet extends HttpServlet {
                 // if the user hasn't filled out all info for person 2 (email not required)
                 if(givenName3 == null || givenName3.equals("") || familyName3 == null || familyName3.equals("")) {
                     request.setAttribute("givenName3Error","Please finish filling out person 3 information.");
+                    success = false;
                 }
                 person3Exists = true;
             }
 
-            donors.add(new Person(givenName1, familyName1, email1));
+            if(person1Exists) {
+                donors.add(new Person(givenName1, familyName1, email1));
+            }
             if(person2Exists){
                 donors.add(new Person(givenName2, familyName2, email2));
             }
@@ -108,38 +119,46 @@ public class DonationServlet extends HttpServlet {
                 donation.setAmount(request.getParameter("amount"));
             } catch (Exception ex){
                 request.setAttribute("amountError", ex.getMessage());
+                success = false;
             }
             try{
                 donation.setFrequency(request.getParameter("frequency"));
             } catch (Exception ex){
                 request.setAttribute("frequencyError", ex.getMessage());
+                success = false;
             }
             try{
                 donation.setEnding(request.getParameter("endingDate"));
             } catch (Exception ex){
                 request.setAttribute("endingDateError", ex.getMessage());
+                success = false;
             }
             try{
                 donation.setApplyTo(request.getParameter("applyTo"));
             } catch (Exception ex){
                 request.setAttribute("applyToError", ex.getMessage());
+                success = false;
             }
             try{
                 donation.setNote(request.getParameter("note"));
             } catch (Exception ex){
                 request.setAttribute("noteError", ex.getMessage());
+                success = false;
             }
 
-            donation.setPostAmount(request.getParameter("postAmount").equals("true"));
-            donation.setPostName(request.getParameter("postName").equals("true"));
+            String[] postAmount = request.getParameterValues("postAmount");
+            donation.setPostAmount(postAmount != null);
+            String[] postName = request.getParameterValues("postName");
+            donation.setPostName(postName != null);
             donation.setDateTimeProcessed(Instant.now().toString());
             donation.setDonors(donors);
-
-            donationAccessor.InsertDonation(donation);
+            if(success) {
+                donationAccessor.InsertDonation(donation);
+                request.setAttribute("success", true);
+            }
         } catch(Exception ex){
             throw ex;
         }
-        request.setAttribute("donationSubmitted", true);
         request.getRequestDispatcher("/WEB-INF/final-project/donate.jsp").forward(request, response);
     }
 
