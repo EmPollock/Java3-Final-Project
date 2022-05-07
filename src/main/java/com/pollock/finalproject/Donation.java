@@ -185,9 +185,9 @@ public class Donation implements Serializable, Comparable<Donation>{
     public void validateEnding(String ending){
         try{
            LocalDate parsedDate = LocalDate.parse(ending);
-           /*if(parsedDate.compareTo(LocalDate.now()) > 0){
+           if(parsedDate.isBefore(LocalDate.now())){
                throw new IllegalArgumentException("Invalid ending date.");
-           }*/
+           }
         } catch (Exception ex){
             throw new IllegalArgumentException("Invalid ending date.");
         }
