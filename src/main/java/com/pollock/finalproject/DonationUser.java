@@ -128,12 +128,18 @@ public class DonationUser implements Serializable {
         if(password.length() > 20){
             throw new IllegalArgumentException("Password length cannot be more than 20 characters.");
         }
-        // regex from https://www.geeksforgeeks.org/how-to-validate-a-password-using-regular-expressions-in-java/
-        if(!Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\\\S+$).{8,20}$")
-                .matcher(password)
-                .matches())
-        {
-            throw new IllegalArgumentException("Invalid password. Must have a number, an upper case letter, a lowercase letter, and a symbol");
+        // regex based on https://www.baeldung.com/java-lowercase-uppercase-special-character-digit-regex
+        if(!Pattern.compile(".*\\d.*").matcher(password).matches()){
+            throw new IllegalArgumentException("Password must contain a number");
+        }
+        if(!Pattern.compile(".*[a-z].*").matcher(password).matches()){
+            throw new IllegalArgumentException("Password must contain a lowercase letter");
+        }
+        if(!Pattern.compile(".*[A-Z].*").matcher(password).matches()){
+            throw new IllegalArgumentException("Password must contain an uppercase letter");
+        }
+        if(!Pattern.compile(".*[`~!@#$%^&*()\\-_=+\\\\|\\[{\\]};:'\",<.>/?].*").matcher(password).matches()){
+            throw new IllegalArgumentException("Password must contain a symbol");
         }
     }
 

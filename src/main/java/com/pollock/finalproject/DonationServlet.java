@@ -32,6 +32,9 @@ public class DonationServlet extends HttpServlet {
             case "stats":
 
                 break;
+            case "logout":
+                logOut(request, response);
+                break;
             case "list":
             default:
                 viewDonations(request, response);
@@ -66,8 +69,7 @@ public class DonationServlet extends HttpServlet {
                 success = false;
             }
             String familyName1 = request.getParameter("familyName1");
-            String email1 = request.getParameter("email1");
-            if(familyName1 == null || familyName1.equals("") || email1 == null || email1.equals("")){
+            if(familyName1 == null || familyName1.equals("")){
                 request.setAttribute("familyName1Error", "Please finish filling out person 1 information.");
                 person1Exists = false;
                 success = false;
@@ -75,11 +77,9 @@ public class DonationServlet extends HttpServlet {
 
             String givenName2 = request.getParameter("givenName2");
             String familyName2 = request.getParameter("familyName2");
-            String email2 = request.getParameter("email2");
             boolean person2Exists = false;
             // if the user has filled out any info for person 2
-            if(givenName2 != null && !givenName2.equals("") && familyName2 != null && !familyName2.equals("")
-                    && email2 != null || !email2.equals("")){
+            if((givenName2 != null && !givenName2.equals("")) || (familyName2 != null && !familyName2.equals(""))){
                 // if the user hasn't filled out all info for person 2 (email not required)
                 if(givenName2 == null || givenName2.equals("") || familyName1 == null || familyName2.equals("")) {
                     request.setAttribute("givenName2Error","Please finish filling out person 2 information.");
@@ -93,8 +93,7 @@ public class DonationServlet extends HttpServlet {
             String email3 = request.getParameter("email3");
             boolean person3Exists = false;
             // if the user has filled out any info for person 3
-            if(givenName3 != null && !givenName3.equals("") && familyName3 != null && !familyName3.equals("")
-                    && email3 != null || !email3.equals("")){
+            if((givenName3 != null && !givenName3.equals("")) || (familyName3 != null && !familyName3.equals(""))){
                 // if the user hasn't filled out all info for person 2 (email not required)
                 if(givenName3 == null || givenName3.equals("") || familyName3 == null || familyName3.equals("")) {
                     request.setAttribute("givenName3Error","Please finish filling out person 3 information.");
@@ -104,13 +103,13 @@ public class DonationServlet extends HttpServlet {
             }
 
             if(person1Exists) {
-                donors.add(new Person(givenName1, familyName1, email1));
+                donors.add(new Person(givenName1, familyName1));
             }
             if(person2Exists){
-                donors.add(new Person(givenName2, familyName2, email2));
+                donors.add(new Person(givenName2, familyName2));
             }
             if(person3Exists){
-                donors.add(new Person(givenName3, familyName3, email3));
+                donors.add(new Person(givenName3, familyName3));
             }
 
             Donation donation = new Donation();
@@ -152,6 +151,10 @@ public class DonationServlet extends HttpServlet {
             donation.setPostName(postName != null);
             donation.setDateTimeProcessed(Instant.now().toString());
             donation.setDonors(donors);
+            HttpSession session = request.getSession();
+            if(session.getAttribute("user") != null){
+                donation.setUser((DonationUser)session.getAttribute("user"));
+            }
             if(success) {
                 donationAccessor.InsertDonation(donation);
                 request.setAttribute("success", true);
@@ -187,6 +190,14 @@ public class DonationServlet extends HttpServlet {
 
     private void showDonationForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/final-project/donate.jsp").forward(request, response);
+    }
+
+    private void logOut(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException{
+        HttpSession session = request.getSession();
+        if(session.getAttribute("user") != null){
+            session.removeAttribute("user");
+        }
+        response.sendRedirect(request.getContextPath() + "/donation/login");
     }
 
     private boolean isAnInt(String str){

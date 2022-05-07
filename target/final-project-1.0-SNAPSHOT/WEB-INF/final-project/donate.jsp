@@ -34,11 +34,7 @@
                         </c:if>
                     </div>
                     <div class="col">
-                        <label for="email1">Email Address</label>
-                        <input type="text" name="email1" id="email1" class="form-control border-info text-black">
-                        <c:if test="${email1Error != null && email1Error != \"\"}">
-                            <p class="text-danger">${email1Error}</p>
-                        </c:if>
+
                     </div>
                 </div>
                 <div class="control-group row">
@@ -57,11 +53,7 @@
                         </c:if>
                     </div>
                     <div class="col">
-                        <label for="email2">Email Address</label>
-                        <input type="text" name="email2" id="email2" class="form-control border-info text-black">
-                        <c:if test="${email2Error != null && email2Error != \"\"}">
-                            <p class="text-danger">${email2Error}</p>
-                        </c:if>
+
                     </div>
                 </div>
                 <div class="control-group row">
@@ -80,11 +72,7 @@
                         </c:if>
                     </div>
                     <div class="col">
-                        <label for="email3">Email Address</label>
-                        <input type="text" name="email3" id="email3" class="form-control border-info text-black">
-                        <c:if test="${email3Error != null && email3Error != \"\"}">
-                            <p class="text-danger">${email3Error}</p>
-                        </c:if>
+
                     </div>
                 </div>
                 <div class="control-group row">

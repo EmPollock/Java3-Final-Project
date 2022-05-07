@@ -23,6 +23,7 @@ public class Donation implements Serializable, Comparable<Donation>{
     private ArrayList<Person> donors;
     private boolean postAmount;
     private boolean postName;
+    private DonationUser user;
 
     private static ArrayList<Integer> ids = new ArrayList<>();
 
@@ -48,7 +49,7 @@ public class Donation implements Serializable, Comparable<Donation>{
     }
 
     public Donation(String id, String dateTimeProcessed, String amount, String frequency, String ending,
-                    String applyTo, String note, ArrayList<Person> donors, boolean postAmount, boolean postName) {
+                    String applyTo, String note, ArrayList<Person> donors, boolean postAmount, boolean postName, DonationUser user) {
         try {
             setId(id);
             setDateTimeProcessed(dateTimeProcessed);
@@ -60,6 +61,9 @@ public class Donation implements Serializable, Comparable<Donation>{
             setDonors(donors);
             setPostAmount(postAmount);
             setPostName(postName);
+            if(user != null) {
+                setUser(user);
+            }
         } catch (Exception ex){
             throw ex;
         }
@@ -185,9 +189,6 @@ public class Donation implements Serializable, Comparable<Donation>{
     public void validateEnding(String ending){
         try{
            LocalDate parsedDate = LocalDate.parse(ending);
-           if(parsedDate.isBefore(LocalDate.now())){
-               throw new IllegalArgumentException("Invalid ending date.");
-           }
         } catch (Exception ex){
             throw new IllegalArgumentException("Invalid ending date.");
         }
@@ -289,6 +290,14 @@ public class Donation implements Serializable, Comparable<Donation>{
 
     public void setPostName(boolean postName) {
         this.postName = postName;
+    }
+
+    public DonationUser getUser() {
+        return user;
+    }
+
+    public void setUser(DonationUser user) {
+        this.user = user;
     }
 
     public Date getNewDateTimeProcessed(){

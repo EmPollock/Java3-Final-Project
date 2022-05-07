@@ -1,10 +1,11 @@
 package com.pollock.finalproject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class DonationUserAccessor {
-    private List<DonationUser> users;
+    private List<DonationUser> users = new ArrayList<DonationUser>();
 
     public DonationUserAccessor(){
         HashMap<String, Boolean> AdminPermissions = new HashMap<>();

@@ -18,21 +18,21 @@
                         <a class="nav-link" href="<c:url value="/donation"><c:param name="action" value="donate"/></c:url>">Donate</a>
                     </li>
 
-                    <c:if test="${username} != null">
+                    <c:if test="${user != null}">
                         <li class="nav-item">
-                            <a class="nav-link" href="<c:url value="#"/>">My Past Donations</a>
+                            <a class="nav-link" href="<c:url value=""/>">My Past Donations</a>
                         </li>
                     </c:if>
                 </ul>
                     <c:choose>
-                        <c:when test="${username} != null">
-                            <li class="nav-item">
-                                <a class="nav-link" href="<c:url value="#"/>">Logout</a>
+                        <c:when test="${user != null}">
+                            <li class="nav-item" style="list-style-type: none">
+                                <a class="nav-link" href="<c:url value="/donation"><c:param name="action" value="logout"/></c:url>">Logout</a>
                             </li>
                         </c:when>
                         <c:otherwise>
                             <li class="nav-item" style="list-style-type: none">
-                                <a class="nav-link" href="<c:url value="#"/>">Login</a>
+                                <a class="nav-link" href="<c:url value="/donation/login"/>">Login</a>
                             </li>
                         </c:otherwise>
                     </c:choose>

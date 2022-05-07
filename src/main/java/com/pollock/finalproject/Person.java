@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 public class Person {
     private String givenName;
     private String familyName;
-    private String email;
 
     public static final int MIN_GIVEN_NAME_LENGTH = 1;
     public static final int MAX_GIVEN_NAME_LENGTH = 200;
@@ -15,13 +14,11 @@ public class Person {
     public Person() {
         givenName = "";
         familyName = "";
-        email = "";
     }
 
-    public Person(String givenName, String familyName, String email) {
+    public Person(String givenName, String familyName) {
         setGivenName(givenName);
         setFamilyName(familyName);
-        setEmail(email);
     }
 
     public String getGivenName() {
@@ -66,29 +63,5 @@ public class Person {
         if(familyName.length() > MAX_FAMILY_NAME_LENGTH){
             throw new IllegalArgumentException("Family name is too long. It must be shorter than " + MAX_FAMILY_NAME_LENGTH + " characters long.");
         }
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        try{
-            validateEmail(email);
-        } catch (Exception ex){
-            throw ex;
-        }
-        this.email = email;
-    }
-
-    private void validateEmail(String email){
-        // based on examples on https://www.baeldung.com/java-email-validation-regex
-         if(!Pattern.compile("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
-                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")
-                .matcher(email)
-                .matches())
-         {
-             throw new IllegalArgumentException("Invalid email.");
-         }
     }
 }
