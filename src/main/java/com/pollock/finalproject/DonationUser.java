@@ -2,6 +2,8 @@ package com.pollock.finalproject;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -173,6 +175,10 @@ public class DonationUser implements Serializable {
         } catch (Exception ex){
             throw new IllegalArgumentException("Invalid birthday.");
         }
+    }
+
+    public Date getNewBirthday(){
+        return Date.from(birthday.atStartOfDay(ZoneId.of("America/Chicago")).toInstant());
     }
 
     @Override

@@ -23,15 +23,21 @@
                             <a class="nav-link" href="<c:url value="/donation"><c:param name="action" value="my-donations"/></c:url>">My Past Donations</a>
                         </li>
                     </c:if>
+                    <c:if test="${user != null && user.permissions[\"admin\"]}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/donation"><c:param name="action" value="summary"/></c:url>">Summary</a>
+                        </li>
+                    </c:if>
                 </ul>
+                <ul class="navbar-nav">
                     <c:choose>
                         <c:when test="${user != null}">
-                            <li class="nav-item" style="list-style-type: none">
+                            <li class="nav-item">
                                 <a class="nav-link" href="<c:url value="/donation"><c:param name="action" value="logout"/></c:url>">Logout</a>
                             </li>
                         </c:when>
                         <c:otherwise>
-                            <li class="nav-item" style="list-style-type: none">
+                            <li class="nav-item">
                                 <a class="nav-link" href="<c:url value="/donation/login"/>">Login</a>
                             </li>
                         </c:otherwise>

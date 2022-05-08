@@ -12,6 +12,7 @@ import java.util.HashMap;
 public class DonationServlet extends HttpServlet {
     DonationAccessor donationAccessor = new DonationAccessor();
     ArrayList<Donation> donations;
+    DonationUserAccessor userAccessor = new DonationUserAccessor();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,8 +30,11 @@ public class DonationServlet extends HttpServlet {
             case "my-donations":
                 viewUserDonations(request, response);
                 break;
+            case "summary":
+                viewSummary(request, response);
+                break;
             case "stats":
-
+                viewStats(request, response);
                 break;
             case "logout":
                 logOut(request, response);
@@ -199,7 +203,7 @@ public class DonationServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/donation/login");
     }
 
-    private void viewUserDonations(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException{
+    private void viewUserDonations(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         HttpSession session = request.getSession();
         if(session.getAttribute("user") == null){
             response.sendRedirect(request.getContextPath() + "/donation/login");
@@ -208,6 +212,54 @@ public class DonationServlet extends HttpServlet {
         DonationUser user = (DonationUser) session.getAttribute("user");
         request.setAttribute("donationList", donationAccessor.getDonationsByEmail(user.getEmail()));
         request.getRequestDispatcher("/WEB-INF/final-project/userDonations.jsp").forward(request, response);
+    }
+
+    private void viewSummary(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        HttpSession session = request.getSession();
+        if(session.getAttribute("user") == null){
+            response.sendRedirect(request.getContextPath() + "/donation/login");
+            return;
+        }
+        DonationUser user = (DonationUser) session.getAttribute("user");
+        if(!user.getPermissions().get("admin")){
+            response.sendRedirect(request.getContextPath() + "/donation/login");
+            return;
+        }
+        request.setAttribute("users", userAccessor.getUsers());
+        request.setAttribute("donationTotal", donationAccessor.getTotalAmount());
+        request.setAttribute("averagePerDono", donationAccessor.getAveragePerDonation());
+        request.setAttribute("donationsToday", donationAccessor.getNumberOfDonationsToday());
+        request.setAttribute("averageUserDonos", donationAccessor.getAverageDonationsPerUser());
+
+        request.getRequestDispatcher("/WEB-INF/final-project/summary.jsp").forward(request, response);
+    }
+
+    private void viewStats(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        HttpSession session = request.getSession();
+        request.setAttribute("error", false);
+        if(session.getAttribute("user") == null){
+            response.sendRedirect(request.getContextPath() + "/donation/login");
+            return;
+        }
+        DonationUser user = (DonationUser) session.getAttribute("user");
+        if(!user.getPermissions().get("admin")){
+            response.sendRedirect(request.getContextPath() + "/donation/login");
+            return;
+        }
+
+        String email = request.getParameter("user");
+        DonationUser viewUser = userAccessor.getUserByEmail(email);
+        if(viewUser == null){
+            request.setAttribute("error", true);
+            request.setAttribute("errorMsg", "Could not find a user with the email " + email);
+        }
+        else{
+            request.setAttribute("viewUser", viewUser);
+            ArrayList<Donation> userDonations = donationAccessor.getDonationsByEmail(email);
+            request.setAttribute("userDonations", userDonations);
+            request.setAttribute("totalDonated", donationAccessor.getTotalAmount(userDonations));
+        }
+        request.getRequestDispatcher("/WEB-INF/final-project/stats.jsp").forward(request, response);
     }
 
     private boolean isAnInt(String str){

@@ -2,6 +2,8 @@ package com.pollock.finalproject;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -80,11 +82,10 @@ public class DonationAccessor {
                 false, true, userAccessor.getUserByEmail("rcarlson@real.com")));
         nextID++;
 
-        // 2 more
         ArrayList<Person> personArr9 = new ArrayList<>();
         personArr9.add(person6);
         donations.add(new Donation(nextID.toString(), "2022-04-21T21:14:32.06Z", "1200.00", "Monthly",
-                "2022-04-21", "Odds and Ends", "", personArr9, false, false,
+                "2022-04-21", "Odds and Ends", "<script>alert(\"I am an alert box!\");</script>", personArr9, false, false,
                 userAccessor.getUserByEmail("emcod@real.com")));
         nextID++;
 
@@ -125,5 +126,40 @@ public class DonationAccessor {
             }
         }
         return results;
+    }
+
+    public static Double getTotalAmount(ArrayList<Donation> donations) {
+        Double sum = 0d;
+        for(Donation d : donations){
+            sum += d.getAmount();
+        }
+        return sum;
+    }
+    public Double getTotalAmount() {
+        Double sum = 0d;
+        for(Donation d : donations){
+            sum += d.getAmount();
+        }
+        return sum;
+    }
+
+    public Double getAveragePerDonation() {
+        return getTotalAmount() / Double.parseDouble(((Integer)donations.size()).toString());
+    }
+
+    public int getNumberOfDonationsToday() {
+        int result = 0;
+
+        for(Donation d : donations){
+            if(LocalDateTime.ofInstant(d.getDateTimeProcessed(), ZoneId.systemDefault()).toLocalDate().equals(LocalDate.now())){
+                result++;
+            }
+        }
+
+        return result;
+    }
+
+    public int getAverageDonationsPerUser() {
+        return donations.size() / userAccessor.getUsers().size();
     }
 }
