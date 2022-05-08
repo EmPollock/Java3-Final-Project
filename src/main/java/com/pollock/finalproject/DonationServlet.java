@@ -27,7 +27,7 @@ public class DonationServlet extends HttpServlet {
                 showDonationForm(request, response);
                 break;
             case "my-donations":
-
+                viewUserDonations(request, response);
                 break;
             case "stats":
 
@@ -170,7 +170,6 @@ public class DonationServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/final-project/index.jsp").forward(request, response);
     }
 
-
     private void donationDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idString = request.getParameter("donationID");
         request.setAttribute("error", false);
@@ -198,6 +197,17 @@ public class DonationServlet extends HttpServlet {
             session.removeAttribute("user");
         }
         response.sendRedirect(request.getContextPath() + "/donation/login");
+    }
+
+    private void viewUserDonations(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException{
+        HttpSession session = request.getSession();
+        if(session.getAttribute("user") == null){
+            response.sendRedirect(request.getContextPath() + "/donation/login");
+            return;
+        }
+        DonationUser user = (DonationUser) session.getAttribute("user");
+        request.setAttribute("donationList", donationAccessor.getDonationsByEmail(user.getEmail()));
+        request.getRequestDispatcher("/WEB-INF/final-project/userDonations.jsp").forward(request, response);
     }
 
     private boolean isAnInt(String str){

@@ -20,7 +20,7 @@
 
                     <c:if test="${user != null}">
                         <li class="nav-item">
-                            <a class="nav-link" href="<c:url value=""/>">My Past Donations</a>
+                            <a class="nav-link" href="<c:url value="/donation"><c:param name="action" value="my-donations"/></c:url>">My Past Donations</a>
                         </li>
                     </c:if>
                 </ul>

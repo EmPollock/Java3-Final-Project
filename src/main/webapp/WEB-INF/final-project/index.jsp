@@ -5,7 +5,7 @@
 <div class="container">
     <br/>
     <br/>
-    <h2>Past Donations</h2>
+    <h2>Thanks to everyone who has donated!</h2>
     <div>
         <c:forEach var="donation" items="${donationList}">
             <div>
@@ -13,7 +13,7 @@
                     <c:choose>
                         <c:when test="${donation.postName}">
                             <c:choose>
-                                <c:when test="${fn:length(donation.donors) == 0}">
+                                <c:when test="${fn:length(donation.donors) <= 1}">
                                     <strong>Donor:</strong>
                                 </c:when>
                                 <c:otherwise>

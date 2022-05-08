@@ -20,7 +20,7 @@ public class DonationUserAccessor {
         NormalPermissions.put("active", false);
 
         users.add(new DonationUser("Tess", "Data", "tess@real.com", "P@ssw0rd", NormalPermissions, "1970-11-04"));
-        users.add(new DonationUser("Admin", "McGuffin", "adming@real.com", "P@ssw0rdle", AdminPermissions, "1996-01-23"));
+        users.add(new DonationUser("Admin", "McGuffin", "admin@real.com", "P@ssw0rdle", AdminPermissions, "1996-01-23"));
         users.add(new DonationUser("Emilia", "Codder", "emcod@real.com", "P@ssw0rdle", NormalPermissions, "2002-06-10"));
         users.add(new DonationUser("Noah", "Westwater", "noahman108@real.com", "P@ssw0rd", NormalPermissions, "2001-09-09"));
         users.add(new DonationUser("Greg", "Smith", "gregert@real.com", "P@ssw0rd", NormalPermissions, "1984-04-05"));

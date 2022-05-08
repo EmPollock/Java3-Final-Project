@@ -117,4 +117,13 @@ public class DonationAccessor {
         donations.add(donation);
         Collections.sort(donations, Collections.reverseOrder());
     }
+    public ArrayList<Donation> getDonationsByEmail(String email){
+        ArrayList<Donation> results = new ArrayList<Donation>();
+        for(Donation d : donations){
+            if(d.getUser() != null && d.getUser().getEmail().equals(email)){
+                results.add(d);
+            }
+        }
+        return results;
+    }
 }
