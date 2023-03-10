@@ -4,7 +4,7 @@ This is the final project for my CIS-181 Java III course at Kirkwood Community C
 
 ## Deployment
 
-* [Heroku](salty-savannah-73662.herokuapp.com/)
+No longer deployed
 
 ## Project Setup
 
